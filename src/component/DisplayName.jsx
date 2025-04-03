@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function NameForm() {
+const DisplayName = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [fullName, setFullName] = useState("");
@@ -68,6 +68,6 @@ function NameForm() {
       )}
     </div>
   );
-}
+};
 
-export default NameForm;
+export default DisplayName;
