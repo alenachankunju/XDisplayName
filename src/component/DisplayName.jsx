@@ -26,6 +26,7 @@ const DisplayName = () => {
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Full Name Display</h1>
       <form
         onSubmit={handleSubmit}
         style={{
