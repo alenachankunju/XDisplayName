@@ -1,46 +1,73 @@
-
 import React, { useState } from "react";
 
-const DisplayName = () => {
+function NameForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [fullName, setFullName] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    event.preventDefault()
+  const validateInput = (name) => {
+    return /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/? ]*$/.test(name);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!validateInput(firstName) || !validateInput(lastName)) {
+      setError(
+        "Invalid characters detected. Please use only letters, numbers, and special characters."
+      );
+      return;
+    }
+    setError("");
     if (firstName.trim() && lastName.trim()) {
       setFullName(`${firstName} ${lastName}`);
     }
   };
 
   return (
-    <div>
-      <h1>Full Name Display</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">FirstName:</label>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: "inline-block",
+          textAlign: "left",
+          background: "#f4f4f4",
+          padding: "20px",
+          borderRadius: "5px",
+        }}
+      >
+        <label htmlFor="firstName">First Name:</label>
         <input
           type="text"
-          name="firstName"
           id="firstName"
+          value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           required
         />
         <br />
-        <label htmlFor="lastName">LastName:</label>
+        <br />
+        <label htmlFor="lastName">Last Name:</label>
         <input
           type="text"
-          name="lastName"
-          id="lstName"
+          id="lastName"
+          value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           required
         />
         <br />
+        <br />
         <button type="submit">Submit</button>
-
-        {fullName && <p>Full Name: {fullName}</p>}
       </form>
+      {error && <div style={{ color: "red", marginTop: "10px" }}>{error}</div>}
+      {fullName && (
+        <div
+          style={{ marginTop: "20px", fontSize: "1.2em", fontWeight: "bold" }}
+        >
+          Full Name: {fullName}
+        </div>
+      )}
     </div>
   );
-};
+}
 
-export default DisplayName;
+export default NameForm;
